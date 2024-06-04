@@ -1,0 +1,19 @@
+/* Estilos de ngx-scanner-qrcode */
+.custom-scanner::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid red; /* Cambia el color del borde a rojo */
+    box-sizing: border-box;
+    pointer-events: none;
+    z-index: 1000;
+  }
+  .text-gray-700 {
+    max-width: 100px; /* Ajusta este valor según tus preferencias */
+    width: 100%;
+  }
+  
+  

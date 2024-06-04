@@ -1,0 +1,12 @@
+<div class="container mx-auto mt-10">
+    <div class="carousel relative overflow-hidden">
+      <div class="carousel-inner flex transition-transform duration-500 ease-in-out" [ngStyle]="{'transform': 'translateX(-' + currentIndex * 100 + '%)'}">
+        <div class="carousel-item min-w-full" *ngFor="let image of images">
+          <img [src]="image" alt="Imagen" class="w-full">
+        </div>
+      </div>
+      <button (click)="prev()" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2"><<<</button>
+      <button (click)="next()" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2">>>></button>
+    </div>
+  </div>
+  

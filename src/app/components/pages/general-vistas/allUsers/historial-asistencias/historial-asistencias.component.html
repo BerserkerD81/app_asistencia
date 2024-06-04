@@ -1,0 +1,50 @@
+<app-nav-bar></app-nav-bar>
+<app-side-bar></app-side-bar>
+<div class="p-4 sm:ml-64">
+  <div class="p-4 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+    <div class="grid gap-4 mb-4">
+      <div class="tabla-rectangular">
+        <!-- Título de la tabla -->
+        <h2 class="text-xl font-bold mb-4">Tabla de Asistencia</h2>
+        
+        <!-- Tabla de asistencia -->
+        <table class="wp-content p-4">
+          <thead>
+            <tr>
+              <th class="border px-4 py-2">Fecha</th>
+              <th class="border px-4 py-2">Hora de Inicio</th>
+              <th class="border px-4 py-2">Hora de Fin</th>
+              <th class="border px-4 py-2">Curso</th>
+              <th class="border px-4 py-2">Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let record of attendanceRecords">
+              <td class="border px-4 py-2">{{ record.fecha }}</td>
+              <td class="border px-4 py-2">{{ record.hora_inicio }}</td>
+              <td class="border px-4 py-2">{{ record.hora_fin }}</td>
+              <td class="border px-4 py-2">{{ record.curso_nombre }}</td>
+              <td class="border px-4 py-2">{{ record.estado }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="mostrarAdvertencia" class="relative w-72 mx-auto mt-10 p-4 bg-yellow-200 border border-yellow-500 rounded">
+        <!-- Botón de cierre (X) -->
+        <button (click)="cerrarAdvertencia()" class="absolute top-0 right-0 m-2 text-gray-600 hover:text-gray-900">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        
+        <!-- Contenido de la advertencia -->
+        <h2 class="text-xl font-bold mb-2">¡IMPORTANTE!</h2>
+        <p class="text-sm">Tienes {{ inasistenciasSinJustificar }} inasistencias sin justificar, presiona para ver detalle.</p>
+        
+        <!-- Botón -->
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded">
+          <a href="/inasistencias">Ver inasistencias</a> 
+        </button>
+      </div>
+      
+    </div>
+  </div>
+</div>

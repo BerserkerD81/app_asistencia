@@ -1,0 +1,17 @@
+.ok-dialog {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  mat-spinner {
+    margin-bottom: 10px;
+  }
+  img
+  {
+   width: 100px; 
+   height: 100px;;
+  }
+  

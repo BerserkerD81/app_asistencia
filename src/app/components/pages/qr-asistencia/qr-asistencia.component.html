@@ -1,0 +1,143 @@
+<div class="container">
+  <h1>scanner-qrcode</h1>
+
+  <!-- ngx-scanner-qrcode -->
+  <div class="camera-container">
+    <ngx-scanner-qrcode #action="scanner" [config]="config" (event)="onEvent($event, action)"
+      class="custom-scanner"></ngx-scanner-qrcode>
+
+    <!-- Overlay controls -->
+    <div class="controls-overlay">
+      <!-- Toggle Camera Selector -->
+      <button class="btn btn-secondary" (click)="toggleCameraSelector()">Cameras</button>
+
+      <!-- devices (hidden by default) -->
+      <div *ngIf="showCameraSelector" class="camera-selector">
+        <div class="my-1">
+          <select #select1 (change)="action.playDevice(select1.value)" class="form-select form-select-md">
+            <option [value]="null" selected>Select device</option>
+            <option *ngFor="let c of action.devices.value; let i = index" [value]="c.deviceId"
+              [selected]="i == action.deviceIndexActive">{{c.label}}</option>
+          </select>
+        </div>
+
+        <div class="my-1">
+          <select #select2 (change)="action.decode = select2.value" class="form-select form-select-md">
+            <option value="utf-8" [selected]="action.decode == 'utf-8'">UTF-8</option>
+            <option value="iso-8859-15" [selected]="action.decode == 'iso-8859-15'">ISO-8859-15</option>
+            <option value="windows-1252" [selected]="action.decode == 'windows-1252'">Windows-1252</option>
+            <option value="macintosh" [selected]="action.decode == 'macintosh'">Macintosh</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- start/stop and play/pause buttons -->
+    <div class="bottom-controls">
+      <button class="btn" [class.btn-info]="!action.isStart" [class.btn-warning]="action.isStart"
+        [disabled]="action.isLoading" (click)="handle(action, action.isStart ? 'stop' : 'start')">
+        <img
+          [src]="action.isStart ? 'https://id1945.github.io/images/svg/camera-off.svg' : 'https://id1945.github.io/images/svg/camera-on.svg'"
+          width="30px" />
+      </button>
+
+      <button class="btn" [class.btn-info]="!action.isStart" [class.btn-warning]="action.isStart"
+        [disabled]="!action.isStart" (click)="handle(action, action.isPause ? 'play' : 'pause')">
+        <img
+          [src]="action.isPause ? 'https://id1945.github.io/images/svg/play.svg': 'https://id1945.github.io/images/svg/pause.svg'"
+          width="30px" />
+      </button>
+    </div>
+
+   <!-- Popup -->
+<div *ngIf="showPopup" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
+  <div class="bg-white rounded-lg shadow-md p-6 w-1/2">
+    <!-- Botón para cerrar el popup -->
+    <button (click)="closePopup()" class="absolute top-0 right-0 m-2 text-gray-600 hover:text-gray-900">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h2 class="text-xl font-semibold mb-4">Matricularse en Curso</h2>
+    <div class="flex flex-col gap-4">
+      <!-- Lista de cursos -->
+      <div>
+        <span class="font-semibold">Curso:</span>
+        <select class="text-gray-700" [(ngModel)]="selectedCurso" (change)="onCursoSelected()">
+          <option *ngFor="let curso of cursos" [value]="curso">{{ curso }}</option>
+        </select>
+      </div>
+      <!-- Lista de secciones -->
+      <div>
+        <span class="font-semibold">Sección:</span>
+        <select class="text-gray-700" [(ngModel)]="selectedSeccion">
+          <option *ngFor="let seccion of secciones" [value]="seccion">{{ seccion }}</option>
+        </select>
+      </div>
+      <!-- Componente Toggle Box -->
+      <div>
+        <span class="font-semibold">Provisorio:</span>
+        <input type="checkbox" [(ngModel)]="provisorio" />
+      </div>
+      <!-- Botones -->
+      <div class="flex justify-center gap-4">
+        <button (click)="matricularse()"
+          class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Matricularse</button>
+        <button (click)="closePopup()"
+          class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  </div>
+
+  <!-- loading -->
+  <p *ngIf="action.isLoading">⌛ Loading...</p>
+</div>
+
+<style>
+  .camera-container {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .controls-overlay {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .controls-overlay .camera-selector {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bottom-controls {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+  }
+
+  .controls-overlay select,
+  .controls-overlay button {
+    width: 100%;
+  }
+
+  .controls-overlay img,
+  .bottom-controls img {
+    display: block;
+    margin: 0 auto;
+  }
+</style>

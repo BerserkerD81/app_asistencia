@@ -1,0 +1,119 @@
+<app-nav-bar></app-nav-bar>
+<app-side-bar></app-side-bar>
+<div class="p-4 sm:ml-64">
+  <div class="p-4 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+    <div class="grid gap-4 mb-4">
+      <div class="w-full h-full p-8 bg-white shadow-lg">
+        <h1 class="text-2xl font-bold mb-4">Buscador de Profesores</h1>
+
+        <input type="text" class="w-full px-4 py-2 mb-4 border border-gray-300 rounded" placeholder="Buscar por nombre o RUT..." [(ngModel)]="searchTerm" (input)="filterUsers()">
+        <ul id="professorList">
+          <li *ngFor="let user of filteredUsers" class="py-2 border-b border-gray-200 flex justify-between items-center">
+            <div class="flex items-center">
+              <button (click)="printUserName(user.rut)" class="bg-blue-500 text-white px-4 py-2 rounded mr-4">Ver Perfil</button>
+              <button (click)="configurar(user.rut,user.nombre )" class="bg-blue-500 text-white px-4 py-2 rounded mr-4">Configuración</button>
+              <div class="mr-4">
+                <p class="font-semibold">{{ user.nombre }}</p>
+                <p class="text-gray-600">RUT: {{ user.rut }}</p>
+              </div>
+            </div>
+            <label class="inline-flex items-center">
+              <input type="checkbox" [checked]="user.estado === 'activo'" (change)="desactivar(user.rut)" class="form-checkbox h-6 w-6 text-blue-500">
+              <span class="ml-2 text-gray-700">{{ user.estado === 'activo' ? 'Activo' : 'Inactivo' }}</span>
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Popup Modal -->
+<div *ngIf="showPopup" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
+  <div class="bg-white rounded-lg shadow-md p-6 w-1/2 max-h-screen overflow-y-auto relative mt-48"> <!-- Added mt-24 for 100px margin-top -->
+    <button (click)="togglePopup()" class="absolute top-2 right-2 text-gray-600 hover:text-gray-900">
+    </button>
+    <div class="tabla-rectangular">
+      <!-- Título de la tabla -->
+      <h2 class="text-xl font-bold mb-4">Tabla de Asistencia</h2>
+      
+      <!-- Contenedor de la tabla con desplazamiento -->
+      <div class="overflow-x-auto">
+        <table class="min-w-full bg-white">
+          <thead>
+            <tr>
+              <th class="border px-4 py-2">Fecha</th>
+              <th class="border px-4 py-2">Hora de Inicio</th>
+              <th class="border px-4 py-2">Hora de Fin</th>
+              <th class="border px-4 py-2">Curso</th>
+              <th class="border px-4 py-2">Estado</th>
+              <th class="border px-4 py-2">Motivo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let record of attendanceRecords">
+              <td class="border px-4 py-2">{{ record.fecha }}</td>
+              <td class="border px-4 py-2">{{ record.hora_inicio }}</td>
+              <td class="border px-4 py-2">{{ record.hora_fin }}</td>
+              <td class="border px-4 py-2">{{ record.curso_nombre }}</td>
+              <td class="border px-4 py-2">{{ record.estado }}</td>
+              <td class="border px-4 py-2">{{ record.motivo }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="showPopup1" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
+  <div class="relative mx-auto p-2 sm:max-w-lg bg-white rounded-lg shadow-lg">
+    <button (click)="togglePopup1()" class="absolute top-2 right-2 text-gray-600 hover:text-gray-900">
+      <!-- Ícono de cerrar -->
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    <div class="p-2 mt-8">
+      <div class="flex flex-col md:flex-row bg-white border rounded-lg shadow">
+        <div class="flex flex-col w-2/6 items-center justify-center mb-2">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-24 h-24">
+            <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
+          </svg>
+          <p class="text-sm font-bold text-gray-900 mt-2">{{this.nombre}}</p>
+        </div>
+        
+        <div class="w-4/6">
+          <a>
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Configuración de usuario</h5>
+            <p class="text-sm font-medium mb-2">Aquí puedes cambiar el nombre de usuario, contraseña y otros datos de la cuenta.</p>
+          </a>
+          <a>
+            <div>
+              <label for="small-input" class="block mb-1 text-sm font-medium text-gray-900">Cambiar nombre de usuario</label>
+              <input [(ngModel)]="nombre" type="text" id="nombre" class="block w-full p-1 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-red-500 focus:border-red-500">
+            </div>
+            <!--toggle para activar los cambos de abajo-->
+            
+            <label class="mt-4 mb-2 inline-flex items-center cursor-pointer">
+              <input type="checkbox" [(ngModel)]="cambiarContrasena" class="sr-only peer">
+              <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
+              <span class="ms-2 text-sm font-medium text-gray-900">Cambiar contraseña</span>
+            </label>
+            <div class="mb-3">
+              <label for="password" class="block mb-1 text-sm font-medium text-gray-900 ">Contraseña</label>
+              <input type="password" placeholder="Nueva constraseña" id="password" [disabled]="!cambiarContrasena" [(ngModel)]="password"class="disabled:bg-zinc-300 disabled:text-gray-500 block w-full p-1 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-red-500 focus:border-red-500" required />
+            </div>
+            <div class="mb-3">
+              <label for="password" class="block mb-1 text-sm font-medium text-gray-900">Repetir contraseña</label>
+              <input type="password" placeholder="Repetir" id="confirmarPassword" [disabled]="!cambiarContrasena" [(ngModel)]="confirmarPassword"class="disabled:bg-zinc-300 disabled:text-gray-500  w-full p-1 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-red-500 focus:border-red-500" required />
+            </div>
+          </a>
+          <a type="button"(click)="guardarConfig()" class="mt-4 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300">
+            Guardar cambios
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,68 @@
+<header>
+    <app-nav-bar class="fixed-top"></app-nav-bar>
+    <app-side-bar></app-side-bar>
+</header>
+<div class="p-4 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+    <div class="wp-content items-center inset-0 flex justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+            <h2 class="text-2xl font-bold mb-6 text-center">Crear Webmaster</h2>
+            <form action="#" method="POST">
+                <div class="mb-4">
+                    <label for="rut" class="block text-gray-700">Rut de Usuario</label>
+                    <input type="text" [(ngModel)]="rut" id="rut" name="rut" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div class="mb-4">
+                    <label for="username" class="block text-gray-700">Correo del Usuario</label>
+                    <input type="text" [(ngModel)]="email" id="email" name="username" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div class="mb-4">
+                    <label for="username" class="block text-gray-700">Nombre del Usuario</label>
+                    <input type="text" [(ngModel)]="Nombre" id="username" name="username" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div class="mb-4">
+                    <label for="password" class="block text-gray-700">Contraseña</label>
+                    <input type="password" [(ngModel)]="password" id="password" name="password" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div class="mb-4">
+                    <label for="repassword" class="block text-gray-700">Confirmar Contraseña</label>
+                    <input type="password" [(ngModel)]="confirmPassword" id="repassword" name="repassword" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div class="flex items-center justify-between">
+                    <button type="submit" (click)="addUser()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Crear Cuenta</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Pop upspt -->
+
+
+<div *ngIf="mostrarAdvertencia"  class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
+  <div class="bg-white rounded-lg shadow-md p-6 w-1/2">
+
+<!-- Contenido de la advertencia -->
+<h2 class="text-xl font-bold mb-2">¡IMPORTANTE!</h2>
+<p class="text-sm">En este menú crearás un usuario del tipo Webmaster, dicho usuario podrá ver y modificar los estados de diversas asistencias de distintos profesores, ten cuidado y verifica que los datos esten ingresados correctamente antes de proceder.</p>
+
+<!-- Botón -->
+<button (click)="cerrarAdvertencia()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded">
+  Entendido
+</button>
+</div>
+</div>
+
+
+<div *ngIf="mostrarConfirmacion"  class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
+  <div class="bg-white rounded-lg shadow-md p-6 w-1/2">
+
+<!-- Contenido de la advertencia -->
+<h2 class="text-xl font-bold mb-2">¡Listo!</h2>
+<p class="text-sm">Se ha creado con éxito el usuario xxxxxxxx.</p>
+
+<!-- Botón -->
+<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded">
+  Entendido
+</button>
+</div>
+</div>

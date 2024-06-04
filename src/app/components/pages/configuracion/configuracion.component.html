@@ -1,0 +1,51 @@
+<app-nav-bar></app-nav-bar>
+<app-side-bar></app-side-bar>
+<div class="p-4 sm:ml-64">
+    <div class="p-4 mt-14">
+         <div class="flex flex-col md:flex-row mb-4 p-6 bg-white border border-gray-200 rounded-lg shadow">
+            <div class="flex flex-col basis-2/6 items-center justify-center mb-4">
+               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-24 h-24">
+                  <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
+                </svg>
+                <p class="text-sm font-bold text-gray-900 mt-4">{{this.nombre}}</p>
+            </div>
+            
+
+            <div class="basis-3/6">
+               <a>
+                  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Configuración de usuario</h5>
+                  <p class="text-sm font-medium mb-6">Aquí puedes cambiar el nombre de usuario, contraseña y otros datos de la cuenta.</p>
+               </a>
+               <a>
+                  <div>
+                     <label for="small-input" class="block mb-2 text-sm font-medium text-gray-900">Cambiar nombre de usuario</label>
+                     <input [(ngModel)]="nombre" type="text" id="nombre" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-red-500 focus:border-red-500">
+                  </div>
+                  <!--toggle para activar los cambos de abajo-->
+                  
+                  <label class="mt-6 mb-4 inline-flex items-center cursor-pointer">
+                     <input type="checkbox" [(ngModel)]="cambiarContrasena" class="sr-only peer">
+                     <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
+                     <span class="ms-3 text-sm font-medium text-gray-900">Cambiar contraseña</span>
+                  </label>
+                  <div class="mb-5">
+                     <label for="password" class="block mb-2 text-sm font-medium text-gray-900 ">Contraseña</label>
+                     <input type="password" placeholder="Nueva constraseña" id="password" [disabled]="!cambiarContrasena" [(ngModel)]="password"class="disabled:bg-zinc-300 disabled:text-gray-500 block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-red-500 focus:border-red-500" required />
+                   </div>
+                  <div class="mb-5">
+                     <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Repetir contraseña</label>
+                     <input type="password" placeholder="Repetir" id="confirmarPassword" [disabled]="!cambiarContrasena" [(ngModel)]="confirmarPassword"class="disabled:bg-zinc-300 disabled:text-gray-500  w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-red-500 focus:border-red-500" required />
+                  </div>
+
+               </a>
+
+               <a type="button"(click)="guardarConfig()" class="mt-6 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300">
+                  Guardar cambios
+               </a>
+            </div>
+
+
+
+         </div>
+    </div>
+ </div>

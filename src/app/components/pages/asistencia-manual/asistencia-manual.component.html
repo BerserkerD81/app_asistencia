@@ -1,0 +1,69 @@
+    <header>
+        <app-nav-bar class="fixed-top"></app-nav-bar>
+        <app-side-bar></app-side-bar>
+    </header>
+
+    <body class="p-4 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+        <div class="wp-content p-4 sm:ml-64">
+            <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" (ngSubmit)="asistenciaManual()">
+                <div class="mb-4">
+                    <label for="curso" class="block text-gray-700 font-semibold mb-2">Curso:</label>
+                    <select id="curso" name="curso" class="text-gray-700 w-full" [(ngModel)]="selectedCurso" (change)="onCursoSelected()">
+                        <option *ngFor="let curso of cursos" [value]="curso">{{ curso }}</option>
+                    </select>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="seccion" class="block text-gray-700 font-semibold mb-2">Sección:</label>
+                    <select id="seccion" name="seccion" class="text-gray-700 w-full" [(ngModel)]="selectedSeccion" (change)="onSeccionSelected()">
+                        <option *ngFor="let seccion of secciones" [value]="seccion">{{ seccion }}</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="dia" class="block text-gray-700 font-semibold mb-2">Dia:</label>
+                    <select id="dia" name="dia" class="text-gray-700 w-full" [(ngModel)]="selectedDia" (change)="onDiaSelected()">
+                        <option *ngFor="let dia of dias" [value]="dia">{{ dia }}</option>
+                    </select>
+                </div>
+                
+                
+                <div *ngIf="horasAux">
+                    <div class="mb-4">
+                        <label for="dia" class="block text-gray-700 font-semibold mb-2">Hora inicio:</label>
+                        <select [(ngModel)]="hora_inicio" name="horaInicio">
+                    <option *ngFor="let curso of cursosDia" [ngValue]="curso.horaInicio" >{{ curso.horaInicio }}</option>
+                  </select>
+                </div>
+                <div class="mb-4">
+                    <label for="dia" class="block text-gray-700 font-semibold mb-2">Hora Fin:</label>
+
+                  <select [(ngModel)]="hora_fin" name="horaFin">
+                    <option *ngFor="let curso of cursosDia" [ngValue]="curso.horaFin" >{{ curso.horaFin }}</option>
+                  </select>
+                </div>
+                <div class="mb-4">
+                    <label for="dia" class="block text-gray-700 font-semibold mb-2">Sala:</label>
+                    <select [(ngModel)]="sala" name="sala">
+                        <option *ngFor="let salon of salas" [ngValue]="salon.label">{{ salon.label }}</option>
+                    </select>
+                </div>                
+                </div>
+                
+                
+                
+
+                <div class="mb-4">
+                    <label for="motivo" class="block text-gray-700 font-semibold mb-2">Observaciones:</label>
+                    <input type="text" id="motivo" name="motivo" [(ngModel)]="motivo"
+                        class="border border-gray-300 md:h-32 rounded-md w-full px-3 py-2 focus:outline-none focus:border-blue-500"
+                        placeholder="Introduce cualquier observación que consideres importante aquí...">
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Enviar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </body>

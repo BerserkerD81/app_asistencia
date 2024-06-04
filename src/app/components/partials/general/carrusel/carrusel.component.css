@@ -1,0 +1,10 @@
+.carousel {
+    overflow: hidden;
+  }
+  .carousel-inner {
+    display: flex;
+  }
+  .carousel-item {
+    min-width: 100%;
+  }
+  

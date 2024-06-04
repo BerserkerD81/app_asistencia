@@ -1,0 +1,57 @@
+<app-nav-bar></app-nav-bar>
+<app-side-bar></app-side-bar>
+<div class="p-4 sm:ml-64">
+  <div class="grid grid-cols-2 p-4 mt-14">
+    <div class="justify-start col-start-1 col-end-1">
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Generar reporte</h5>
+      <p class="text-sm font-medium mb-6">A continuación, filtra el reporte de asistencia a generar.</p>  
+    </div>
+    <div class="flex justify-end col-start-2 col-end-2">
+      <button (click)="generarPdf()" type="button" class="mb-6 px-6 py-3.5 text-base font-medium text-white inline-flex items-center bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg text-center -600 -red-700 -red-800">
+        Generar Reporte
+      </button>
+    </div>
+
+    <div class="flex justify-start col-span-2 mb-4">
+      <button (click)="dropdownTimepickerButton=!dropdownTimepickerButton" class="text-black bg-gray-100 hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button">Aplicar filtro <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="mx-0.5 size-3">
+        <path d="M14 2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v2.172a2 2 0 0 0 .586 1.414l2.828 2.828A2 2 0 0 1 6 9.828v4.363a.5.5 0 0 0 .724.447l2.17-1.085A2 2 0 0 0 10 11.763V9.829a2 2 0 0 1 .586-1.414l2.828-2.828A2 2 0 0 0 14 4.172V2Z" />
+      </svg>
+      
+      
+      </button>
+      <!-- Dropdown menu -->
+      @if(dropdownTimepickerButton){
+        <div class="mt-12 absolute z-50">
+          <div class="flex bg-white rounded-lg border-gray-100 border-2 shadow-lg w-autop-3">
+            <div class="mx-4 my-4 mb-4">
+              <div class="grid grid-cols-2">
+                <div class="col-start-1 mx-1 my-1">
+                  <label class=" block mb-2 text-sm font-medium text-gray-900">Fecha de Inicio:</label>
+                  <input [(ngModel)]="fechainicio" type="date" class="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" required />
+                </div>
+                <div class="col-start-2 mx-1 my-1">
+                  <label class="block mb-2 text-sm font-medium text-gray-900">Fecha de fin:</label>
+                  <input [(ngModel)]="fechafin" type="date" class="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" required />
+                </div>
+                <div class="col-start-1 col-span-2 mx-1 my-1">
+                  <label class="block mb-2 text-sm font-medium text-gray-900">Rut Docente:</label>
+                  <input [(ngModel)]="rutDocente" type="number" class="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" required />
+                </div>
+              </div>
+              <div class="flex justify-end mt-2 mx-4">
+                <button (click)="filtrarData()" type="button" class=" text-red-700 text-sm hover:underline p-0">Guardar filtro</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        
+      }
+    </div>      
+
+    <div class="flex col-span-2">
+      <app-tabla [elements]="filterData" class="flex justify-center col-span-2"></app-tabla>
+    </div>
+
+  </div>
+</div>
